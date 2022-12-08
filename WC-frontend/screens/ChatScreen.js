@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
 import {
   View,
   Text,
@@ -7,37 +7,68 @@ import {
   ImageBackground,
   TextInput,
   TouchableOpacity,
+  KeyboardAvoidingView,
+  Platform,
 } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import backGroundImage from "../assets/images/droplet.jpeg";
+import backGroundImage from "../assets/images/droplet.jpg";
 import { FontAwesome } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
-import colors from "../constants/colors"
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+
+import colors from "../constants/colors";
 
 const ChatScreen = (props) => {
+  const [messageText, setMessageText] = useState("");
+
+  const sendMessage = useCallback(() => {
+    setMessageText("");
+  }, [messageText]);
+
   return (
     <SafeAreaProvider
       style={styles.container}
       edges={["right, left", "bottom"]}
     >
-      <ImageBackground
-        source={backGroundImage}
-        style={styles.backGroundImage}
-      ></ImageBackground>
+      <KeyboardAvoidingView style={{flex: 1}} behavior={ Platform.OS === "ios" ? "padding" : undefined} keyboardVerticalOffset={100}>
+        <ImageBackground
+          source={backGroundImage}
+          style={styles.backGroundImage}
+        ></ImageBackground>
 
-      <View style={styles.inputContainer}>
-       
-      <TouchableOpacity title="Camera" style={styles.mediaButtons}>
-          <AntDesign name="pluscircleo" size={24} color={colors.blue} />
-        </TouchableOpacity>
+        <View style={styles.inputContainer}>
+          <TouchableOpacity title="Camera" style={styles.mediaButtons}>
+            <AntDesign name="pluscircleo" size={24} color={colors.blue} />
+          </TouchableOpacity>
 
-        <TextInput style={styles.textBox} />
+          <TextInput
+            style={styles.textBox}
+            value={messageText}
+            onChangeText={(text) => {
+              setMessageText(text);
+            }}
+            onSubmitEditing={sendMessage}
+          />
 
-        <TouchableOpacity title="Image" style={styles.mediaButtons}>
-          <FontAwesome name="camera-retro" size={24} color={colors.blue} />
-        </TouchableOpacity>
-        
-      </View>
+          {messageText === "" ? (
+            <TouchableOpacity title="Image" style={styles.mediaButtons}>
+              <FontAwesome name="camera-retro" size={24} color={colors.blue} />
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity
+              title="Image"
+              style={{ ...styles.mediaButtons, ...styles.sendButton }}
+              onPress={sendMessage}
+            >
+              <MaterialCommunityIcons
+                name="cube-send"
+                size={20}
+                color={"white"}
+              />
+            </TouchableOpacity>
+          )}
+        </View>
+      </KeyboardAvoidingView>
     </SafeAreaProvider>
   );
 };
@@ -68,10 +99,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
   },
   mediaButtons: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: 35
-  }
+    alignItems: "center",
+    justifyContent: "center",
+    width: 35,
+  },
+  sendButton: {
+    backgroundColor: colors.blue,
+    borderRadius: 50,
+    padding: 8,
+    width: 35,
+  },
 });
 
 export default ChatScreen;
