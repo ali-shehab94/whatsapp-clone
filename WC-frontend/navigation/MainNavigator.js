@@ -39,16 +39,17 @@ const MainNavigator = () => {
         component={TabNavigator}
         options={{ headerShown: false }}
       />
+       <Stack.Screen
+        name="ChatScreen"
+        component={ChatScreen}
+        options={{ gestureEnabled: true, headerTitle: "", headerBackTitle: "Back" }}
+      />
       <Stack.Screen
         name="ChatSettings"
         component={ChatSettingsScreen}
         options={{ headerBackTitle: "Back" }}
       />
-       <Stack.Screen
-        name="ChatScreen"
-        component={ChatScreen}
-        options={{ gestureEnabled: true, headerTitle: "Settings", headerBackTitle: "Back" }}
-      />
+      
     </Stack.Navigator>
   );
 };
