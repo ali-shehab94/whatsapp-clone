@@ -3,11 +3,13 @@ import { StyleSheet, Text, TextInput, View } from "react-native";
 import colors from "../constants/colors";
 
 import { AntDesign } from "@expo/vector-icons";
+import { MaterialIcons } from '@expo/vector-icons'; 
+
 
 const Input = (props) => {
   return (
     <View style={StyleSheet.container}>
-      <Text>{props.label}</Text>
+      <Text style={styles.label}>{props.label}</Text>
 
       <View style={styles.inputContainer}>
         {props.icon && (
@@ -17,8 +19,15 @@ const Input = (props) => {
             style={styles.icon}
           />
         )}
-        <TextInput />
+        <TextInput style={styles.input} />
       </View>
+
+      {
+        props.errorText &&
+        <View style={styles.errorContainer}>
+          <Text style={styles.errorText}>{props.errorText}</Text>
+        </View>
+      }
     </View>
   );
 };
@@ -26,6 +35,12 @@ const Input = (props) => {
 const styles = StyleSheet.create({
   container: {
     width: "100%",
+  },
+  label: {
+    marginVertical: 8,
+    fontFamily: "bold",
+    letterSpacing: 0.3,
+    color: colors.textColor,
   },
   inputContainer: {
     width: "100%",
@@ -39,6 +54,22 @@ const styles = StyleSheet.create({
   icon: {
     marginRight: 10,
     color: colors.grey,
+  },
+  input: {
+    flex: 1,
+    color: colors.textColor,
+    fontFamily: "regular",
+    letterSpacing: 0.3,
+    paddingTop: 0,
+  },
+  errorContainer: {
+    marginVertical: 5,
+  },
+  errorText: {
+    color: "red",
+    fontSize: 13,
+    fontFamily: "regular",
+    letterSpacing: 0.3,
   },
 });
 
