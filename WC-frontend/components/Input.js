@@ -3,7 +3,6 @@ import { StyleSheet, Text, TextInput, View } from "react-native";
 import colors from "../constants/colors";
 
 import { AntDesign } from "@expo/vector-icons";
-import { MaterialIcons } from '@expo/vector-icons'; 
 
 
 const Input = (props) => {
