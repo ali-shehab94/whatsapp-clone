@@ -1,23 +1,13 @@
 import React from "react";
-import { Text, View } from "react-native";
-import { AntDesign } from "@expo/vector-icons";
 import { MaterialIcons } from '@expo/vector-icons'; 
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 import Input from "../components/Input";
 import SubmitButton from "../components/SubmitButton";
 
 
-const SignUpForm = (props) => {
+const SignInForm = (props) => {
   return (
     <>
-      <Input
-        label="First Name"
-        icon="user"
-        iconPack={AntDesign}
-        iconSize={20}
-      />
-
-      <Input label="Last Name" icon="user" iconPack={AntDesign} iconSize={20} />
 
       <Input
         label="Email"
@@ -42,4 +32,4 @@ const SignUpForm = (props) => {
   );
 };
 
-export default SignUpForm;
+export default SignInForm;
